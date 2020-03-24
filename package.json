@@ -1,0 +1,15 @@
+{
+  "name": "star-wars",
+  "version": "1.0.0",
+  "description": "Star Wars Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimiS22/Star-Wars.git"
+  },
+  "author": "Simi Swaminathan",
+  "license": "ISC"
+}
