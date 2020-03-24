@@ -4,12 +4,17 @@
   "description": "Star Wars Website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "rm -rf build && tsc --watch",
+    "start": "node build/index.js",
+    "watch": "nodemon --quiet build/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SimiS22/Star-Wars.git"
+    "url": "git+https://github.com/SimiS22/star-wars.git"
   },
   "author": "Simi Swaminathan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.8.3"
+  }
 }
