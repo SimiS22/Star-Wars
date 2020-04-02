@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Star Wars</title>
+    <link rel="stylesheet" href="../styles/index.css">
+</head>
+
+<body onkeypress="escClose(event)">
+    <div id="main-page">
+        <div>
+            <header>
+                <h3>The Dark Side</h3>
+            </header>
+        </div>
+        <div id="overlay">
+            <div id="pop-up">
+                <div id="pop-up-content">
+                    <h3>Details are currently unavailable</h3>
+                </div>
+                <button id="close" onclick="closeButton()"><span>❌</span></button>
+
+            </div>
+        </div>
+        <div id="main-content-area">
+            <img src="../images/loadingStarWars.gif">
+        </div>
+        <div>
+            <footer>
+                <script src="../../build/index.js"></script>
+                <div class="icons">
+                    <h4 onclick="fetchData('people','name',1)">Actors 👱🏻‍♂️👱🏻‍♀️</h4>
+                </div>
+                <div class="icons">
+                    <h4 onclick="fetchData('films','title',1)">Films 🎬</h4>
+                </div>
+                <div class="icons">
+                    <h4 onclick="fetchData('starships','name',1)">Starships 🛸</h4>
+                </div>
+                <div class="icons">
+                    <h4 onclick="fetchData('planets','name',1)">Planets 🪐</h4>
+                </div>
+                <div class="icons">
+                    <h4 onclick="fetchData('vehicles','name',1)">Vehicles ✈</h4>
+                </div>
+                <div class="icons">
+                    <h4 onclick="fetchData('species','name',1)">Species 👩🏻‍🚀</h4>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

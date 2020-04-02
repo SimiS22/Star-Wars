@@ -15,6 +15,8 @@
   "author": "Simi Swaminathan",
   "license": "ISC",
   "dependencies": {
+    "@types/node-fetch": "^2.5.5",
+    "node-fetch": "^2.6.0",
     "typescript": "^3.8.3"
   }
 }
