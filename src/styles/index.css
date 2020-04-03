@@ -15,7 +15,7 @@ header{
     text-shadow: 2px 2px rgba(0,0,0,1);  
     text-align: center;
     flex-direction: column;
-    height:12vh;
+    height:11vh;
 }
 #main-content-area{
     display: flex;
@@ -25,11 +25,10 @@ header{
     min-height: 75vh;   
 }
 .icons{
-    
     align-items: flex-start;
     flex-direction: row;  
     flex-grow: 1;  
-    height: 11vh;
+    height: 10vh;
 }
 footer{
     cursor: pointer;
@@ -45,7 +44,7 @@ ul{
 
 li:hover{
     background-color: rgb(210, 243, 243);
-    width :95%;
+    width: 95%;
 }
 #main-content-area img{
     display: block;
@@ -122,4 +121,7 @@ th,td{
     background-color: rgba(0,0,0, 0.6);
     overflow-x: hidden;
 }
-
+.setActive{
+    background-color: rgb(183, 252, 252);
+    border-radius: 20px;
+}

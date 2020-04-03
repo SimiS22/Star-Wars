@@ -36,17 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var generateList = function (entities) {
+    console.log(entities);
     return "<div id = \"list\"><ul>\n    " + entities.map(function (entity) { return "<li id = \"main-list\" onclick =\"entityDetails('" + entity.link + "')\">" + entity.displayName + "</li>"; }).join('') + "\n    </ul></div>";
 }; //generates list of people names,film titles etc..
 function fetchData(input, key, page) {
     return __awaiter(this, void 0, void 0, function () {
-        var elementID, url, response, data, totalCount, getResults, entityArray, checkPageCount;
+        var iconsList, i, id, activePageID, activeClassName, arr, elementID, url, response, data, totalCount, getResults, entityArray, checkPageCount;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    iconsList = document.getElementsByClassName('icons');
+                    console.log(iconsList);
+                    for (i = 0; i < iconsList.length; i++) {
+                        iconsList[i].classList.remove('setActive'); //remove the active style from type in a page
+                    }
+                    id = input;
+                    activePageID = document.getElementById(id);
+                    console.log(activePageID);
+                    activeClassName = "setActive";
+                    if (activePageID != null) {
+                        arr = activePageID.className.split(" ");
+                        console.log(arr);
+                        if (arr.indexOf(activeClassName) == -1) {
+                            activePageID.className += " " + activeClassName; // make the current type as active
+                        }
+                    }
                     elementID = document.getElementById('main-content-area');
                     if (elementID != null) {
-                        elementID.innerHTML = "<img src = \"../images/loading.gif\">";
+                        elementID.innerHTML = "<img src = \"../images/loading.gif\">"; //to display loading till the fetch recieves a response
                     }
                     url = 'https://swapi.co/api/' + input + '/?page=' + page;
                     return [4 /*yield*/, fetch(url)];
@@ -62,7 +79,7 @@ function fetchData(input, key, page) {
                             displayName: element[key],
                             link: element.url
                         };
-                        return output;
+                        return output; // returns the url and name/title from the data
                     });
                     checkPageCount = function () {
                         var displayButtonCount = Math.ceil(totalCount / 10); //gets the number of pages for each entity (actors,films...)
@@ -72,7 +89,7 @@ function fetchData(input, key, page) {
                                 buttonArr.push(i != page ?
                                     "<div class = \"pages\" onclick=\"fetchData('" + input + "','" + key + "'," + i + ")\">" + i + "</div>" :
                                     "<div class = \"pages active\" onclick=\"fetchData('" + input + "','" + key + "'," + i + ")\">" + i + "</div>");
-                                //created buttons 
+                                //created buttons and onclick of buttons returns the corresponding data and sets the page active
                             }
                             return "<div id =\"pagesList\">" + buttonArr.join('') + "</div>";
                         }
