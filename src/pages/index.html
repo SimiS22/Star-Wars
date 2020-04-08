@@ -2,56 +2,68 @@
 <html>
 
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars</title>
     <link rel="stylesheet" href="../styles/index.css">
 </head>
 
-<body onkeypress="escClose(event)">
+<body onload="checkCookie()">
+    <div id="overlay">
+        <div id="pop-up">
+            <div id="pop-up-content"></div>
+            <div id="close" onclick="closeButton()">❌</div>
+        </div>
+    </div>
+    <!--overlay that includes pop-up-->
     <div id="main-page">
-        <div>
-            <header>
-                <h3>The Dark Side</h3>
-            </header>
+        <div id="main-header">
+            <h3>The Dark Side</h3>
         </div>
-        <div id="overlay">
-            <div id="pop-up">
-                <div id="pop-up-content">
-                    <h3>Details are currently unavailable</h3>
-                </div>
-                <button id="close" onclick="closeButton()"><span>❌</span></button>
-
-            </div>
-        </div>
+        <!--header-->
         <div id="main-content-area">
             <img src="../images/loadingStarWars.gif">
         </div>
-        <div>
-            <footer>
-                <script src="../../build/index.js"></script>
-                <div id="people" class="icons" onclick="fetchData('people','name',1)">
-                    <h4>Actors 👱🏻‍♂️👱🏻‍♀️</h4>
-                </div>
-                <div id="films" class="icons" onclick="fetchData('films','title',1)">
-                    <h4>Films 🎬</h4>
-                </div>
-                <div id="starships" class="icons" onclick="fetchData('starships','name',1)">
-                    <h4>Starships 🛸</h4>
-                </div>
-                <div id="planets" class="icons" onclick="fetchData('planets','name',1)">
-                    <h4>Planets 🪐</h4>
-                </div>
-                <div id="vehicles" class="icons" onclick="fetchData('vehicles','name',1)">
-                    <h4>Vehicles ✈</h4>
-                </div>
-                <div id="species" class="icons" onclick="fetchData('species','name',1)">
-                    <h4>Species 👩🏻‍🚀</h4>
-                </div>
-            </footer>
+        <!--content area-->
+        <div id="main-footer">
+            <script src="../../build/index.js"></script>
+            <div id="people" class="icons" onclick="fetchData('people','name',1)">
+                <h4>
+                    <div class="emoji">👱🏻‍♂️👱🏻‍♀️</div>
+                    <div class="entity">Actors</div>
+                </h4>
+            </div>
+            <div id="films" class="icons" onclick="fetchData('films','title',1)">
+                <h4>
+                    <div class="emoji">🎬</div>
+                    <div class="entity">Films</div>
+                </h4>
+            </div>
+            <div id="starships" class="icons" onclick="fetchData('starships','name',1)">
+                <h4>
+                    <div class="emoji">🛸</div>
+                    <div class="entity">Starships</div>
+                </h4>
+            </div>
+            <div id="planets" class="icons" onclick="fetchData('planets','name',1)">
+                <h4>
+                    <div class="emoji">🪐</div>
+                    <div class="entity">Planets</div>
+                </h4>
+            </div>
+            <div id="vehicles" class="icons" onclick="fetchData('vehicles','name',1)">
+                <h4>
+                    <div class="emoji">✈</div>
+                    <div class="entity">Vehicles</div>
+                </h4>
+            </div>
+            <div id="species" class="icons" onclick="fetchData('species','name',1)">
+                <h4>
+                    <div class="emoji">👩🏻‍🚀</div>
+                    <div class="entity">Species</div>
+                </h4>
+            </div>
         </div>
     </div>
-
-
 </body>
 
 </html>

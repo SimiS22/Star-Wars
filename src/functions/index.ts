@@ -1,24 +1,19 @@
 const generateList = (entities: { [key in string]: string }[]) => {
-    console.log(entities)
     return `<div id = "list"><ul>
     ${entities.map((entity) => `<li id = "main-list" onclick ="entityDetails('${entity.link}')">${entity.displayName}</li>`).join('')}
     </ul></div>`
-
-} //generates list of people names,film titles etc..
+} //generates list of people names,film titles etc.
 
 async function fetchData(input: string, key: string, page: number) {
     let iconsList = document.getElementsByClassName('icons');
-    console.log(iconsList);
     for (let i = 0; i < iconsList.length; i++) {
         iconsList[i].classList.remove('setActive'); //remove the active style from type in a page
     }
     let id = input;
     let activePageID = document.getElementById(id);
-    console.log(activePageID)
     let activeClassName = "setActive";
     if (activePageID != null) {
         let arr = activePageID.className.split(" ");
-        console.log(arr);
         if (arr.indexOf(activeClassName) == -1) {
             activePageID.className += " " + activeClassName; // make the current type as active
         }
@@ -39,6 +34,7 @@ async function fetchData(input: string, key: string, page: number) {
         }
         return output; // returns the url and name/title from the data
     });
+
     const checkPageCount = () => {
         let displayButtonCount = Math.ceil(totalCount / 10); //gets the number of pages for each entity (actors,films...)
         let buttonArr: any[] = [];
@@ -60,9 +56,9 @@ async function fetchData(input: string, key: string, page: number) {
         if (elementID != null) {
             elementID.innerHTML = generateList(entityArray) + checkPageCount(); //displayed the list of entity names amd buttons
         }
+        setCookie(input, key, page);
     }, 1000)
 }
-
 const entityDetails = async (url: string) => { //displays the content for onclick of each item in the pop-up
     let x = document.getElementById('overlay');
     let y = document.getElementById('pop-up-content');
@@ -70,7 +66,6 @@ const entityDetails = async (url: string) => { //displays the content for onclic
         x.style.display = 'block'
         y.innerHTML = `<img src = "../images/pop-up loading.gif">`;
     }
-
     let response = await fetch(url);
     let data = await response.json();
     let details = Object.entries(data);
@@ -103,11 +98,38 @@ window.onkeydown = function escClose(event: any) { //close the pop-up on clickin
     if (event.keyCode === 27 && x != null) {
         x.style.display = 'none';
     }
+} //The onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed.
+const setCookie = (pageType: string, pageKey: string, pageNumber: number) => {
+    let d = new Date();
+    d.setHours(d.getHours() + 1); //cookie expiry for 1 hour
+    let expiryDate = "expires =" + d.toUTCString();
+    document.cookie = "Type =" + pageType + ";" + expiryDate + ";path=/";
+    document.cookie = "Value =" + pageKey + ";" + expiryDate + ";path=/";
+    document.cookie = "Number =" + pageNumber + ";" + expiryDate + ";path=/";
 }
-
-//The onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed.
-
-
+const getCookie = (cookieName: string) => {
+    let name = cookieName + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+const checkCookie = () => {
+    let pType = getCookie('Type');
+    let pKey = getCookie('Value');
+    let pNumber = parseInt(getCookie('Number'));
+    let x = document.getElementById('main-content-area');
+    if ((pType != "") && (pKey != "") && (pNumber != 0) && (x != null)) {
+        fetchData(pType, pKey, pNumber);
+    }
+}
 
 
 

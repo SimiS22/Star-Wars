@@ -36,9 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var generateList = function (entities) {
-    console.log(entities);
     return "<div id = \"list\"><ul>\n    " + entities.map(function (entity) { return "<li id = \"main-list\" onclick =\"entityDetails('" + entity.link + "')\">" + entity.displayName + "</li>"; }).join('') + "\n    </ul></div>";
-}; //generates list of people names,film titles etc..
+}; //generates list of people names,film titles etc.
 function fetchData(input, key, page) {
     return __awaiter(this, void 0, void 0, function () {
         var iconsList, i, id, activePageID, activeClassName, arr, elementID, url, response, data, totalCount, getResults, entityArray, checkPageCount;
@@ -46,17 +45,14 @@ function fetchData(input, key, page) {
             switch (_a.label) {
                 case 0:
                     iconsList = document.getElementsByClassName('icons');
-                    console.log(iconsList);
                     for (i = 0; i < iconsList.length; i++) {
                         iconsList[i].classList.remove('setActive'); //remove the active style from type in a page
                     }
                     id = input;
                     activePageID = document.getElementById(id);
-                    console.log(activePageID);
                     activeClassName = "setActive";
                     if (activePageID != null) {
                         arr = activePageID.className.split(" ");
-                        console.log(arr);
                         if (arr.indexOf(activeClassName) == -1) {
                             activePageID.className += " " + activeClassName; // make the current type as active
                         }
@@ -101,6 +97,7 @@ function fetchData(input, key, page) {
                         if (elementID != null) {
                             elementID.innerHTML = generateList(entityArray) + checkPageCount(); //displayed the list of entity names amd buttons
                         }
+                        setCookie(input, key, page);
                     }, 1000);
                     return [2 /*return*/];
             }
@@ -145,8 +142,38 @@ window.onkeydown = function escClose(event) {
     if (event.keyCode === 27 && x != null) {
         x.style.display = 'none';
     }
+}; //The onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed.
+var setCookie = function (pageType, pageKey, pageNumber) {
+    var d = new Date();
+    d.setHours(d.getHours() + 1); //cookie expiry for 1 hour
+    var expiryDate = "expires =" + d.toUTCString();
+    document.cookie = "Type =" + pageType + ";" + expiryDate + ";path=/";
+    document.cookie = "Value =" + pageKey + ";" + expiryDate + ";path=/";
+    document.cookie = "Number =" + pageNumber + ";" + expiryDate + ";path=/";
 };
-//The onKeyDown and onKeyUp events represent keys being pressed or released, while the onKeyPress event represents a character being typed.
+var getCookie = function (cookieName) {
+    var name = cookieName + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};
+var checkCookie = function () {
+    var pType = getCookie('Type');
+    var pKey = getCookie('Value');
+    var pNumber = parseInt(getCookie('Number'));
+    var x = document.getElementById('main-content-area');
+    if ((pType != "") && (pKey != "") && (pNumber != 0) && (x != null)) {
+        fetchData(pType, pKey, pNumber);
+    }
+};
 // async function fetchFilms() {
 //     let response = await fetch('https://swapi.co/api/films');
 //     let data = await response.json();
