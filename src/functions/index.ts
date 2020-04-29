@@ -66,7 +66,10 @@ const entityDetails = async (url: string) => { //displays the content for onclic
         x.style.display = 'block'
         y.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
     }
-    let response = await fetch(url);
+    let urlArr = url.split('/');
+    urlArr[0] = urlArr[0].replace('http:', 'https:');
+    let securedUrl = urlArr.join('/');
+    let response = await fetch(securedUrl);
     let data = await response.json();
     let details = Object.entries(data);
 
@@ -135,7 +138,16 @@ const checkCookie = () => {
     }
 }
 
-
+const onClickOverlay = (e: Event) => {
+    e.stopPropagation();
+    let x = document.getElementById('overlay');
+    if (x !== null) {
+        x.style.display = 'none';
+    }
+}
+const onClickPopUp = (e: Event) => {
+    e.stopPropagation();
+}
 
 // async function fetchFilms() {
 //     let response = await fetch('https://swapi.co/api/films');

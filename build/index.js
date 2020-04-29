@@ -105,7 +105,7 @@ function fetchData(input, key, page) {
     });
 }
 var entityDetails = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var x, y, response, data, details;
+    var x, y, urlArr, securedUrl, response, data, details;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -115,7 +115,10 @@ var entityDetails = function (url) { return __awaiter(void 0, void 0, void 0, fu
                     x.style.display = 'block';
                     y.innerHTML = "<div class=\"lds-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>";
                 }
-                return [4 /*yield*/, fetch(url)];
+                urlArr = url.split('/');
+                urlArr[0] = urlArr[0].replace('http:', 'https:');
+                securedUrl = urlArr.join('/');
+                return [4 /*yield*/, fetch(securedUrl)];
             case 1:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];
@@ -177,6 +180,16 @@ var checkCookie = function () {
     if ((pType != "") && (pKey != "") && (pNumber != 0) && (x != null)) {
         fetchData(pType, pKey, pNumber);
     }
+};
+var onClickOverlay = function (e) {
+    e.stopPropagation();
+    var x = document.getElementById('overlay');
+    if (x !== null) {
+        x.style.display = 'none';
+    }
+};
+var onClickPopUp = function (e) {
+    e.stopPropagation();
 };
 // async function fetchFilms() {
 //     let response = await fetch('https://swapi.co/api/films');
