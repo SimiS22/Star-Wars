@@ -107,6 +107,7 @@ function fetchData(input, key, page) {
 var entityDetails = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var x, y;
     return __generator(this, function (_a) {
+        history.pushState({ name: 'dummy' }, "sidebar"); // to enable the back button
         x = document.getElementById('overlay');
         y = document.getElementById('pop-up-content');
         if (x != null && y != null) {
@@ -196,6 +197,12 @@ var onClickOverlay = function (e) {
 };
 var onClickPopUp = function (e) {
     e.stopPropagation();
+};
+window.onpopstate = function closeOverlay() {
+    var overlayID = document.getElementById('overlay');
+    if (overlayID !== null) {
+        overlayID.style.display = 'none';
+    }
 };
 // async function fetchFilms() {
 //     let response = await fetch('https://swapi.co/api/films');

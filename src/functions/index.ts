@@ -66,6 +66,7 @@ async function fetchData(input: string, key: string, page: number) {
 }
 
 const entityDetails = async (url: string) => { //displays the content for onclick of each item in the pop-up
+    history.pushState({ name: 'dummy' }, "sidebar"); // to enable the back button
     let x = document.getElementById('overlay');
     let y = document.getElementById('pop-up-content');
     if (x != null && y != null) {
@@ -111,7 +112,7 @@ const closeButton = () => { //for closing the pop-up on click of close button
     }
 }
 
-window.onkeydown = function escClose(event: any) { //close the pop-up on clicking the esc key
+window.onkeydown = function escClose(event: KeyboardEvent) { //close the pop-up on clicking the esc key
     let x = document.getElementById('overlay')
     if (event.keyCode === 27 && x != null) {
         x.style.display = 'none';
@@ -158,6 +159,12 @@ const onClickOverlay = (e: Event) => {
 }
 const onClickPopUp = (e: Event) => {
     e.stopPropagation();
+}
+window.onpopstate = function closeOverlay() { //to close the pop-up/sidebar when clicked on back button
+    let overlayID = document.getElementById('overlay');
+    if (overlayID !== null) {
+        overlayID.style.display = 'none';
+    }
 }
 
 
