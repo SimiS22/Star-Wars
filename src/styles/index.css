@@ -87,16 +87,17 @@ li:hover{
     cursor: pointer;
     color: rgb(5, 194, 169);
     font-weight: 600;
-    padding: 8px;
     height: 40px;
     width: 40px;
     text-decoration: none;
     transition: background-color .3s;
     border-radius: 100%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .pages.active{
-    display: block;
     color: white;
     background-color:rgb(5, 194, 169);
 }

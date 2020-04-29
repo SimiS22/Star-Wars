@@ -40,7 +40,7 @@ async function fetchData(input: string, key: string, page: number) {
     });
 
     const checkPageCount = () => {
-        let displayButtonCount = Math.ceil(totalCount / 10); //gets the number of pages for each entity (actors,films...)
+        let displayButtonCount = Math.ceil(totalCount / 10);//gets the number of pages for each entity (actors,films...)
         let buttonArr: any[] = [];
         if (displayButtonCount > 1) {
             for (let i = 1; i <= displayButtonCount; i++) {
