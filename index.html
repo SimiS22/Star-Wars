@@ -4,14 +4,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars</title>
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="./src/styles/index.css">
 </head>
 
 <body onload="checkCookie()">
     <div id="overlay">
         <div id="pop-up">
+            <div id="close" onclick="closeButton()"><img src="./src/images/arrow_back.svg">
+                <h3>Back to Star Wars</h3>
+            </div>
             <div id="pop-up-content"></div>
-            <div id="close" onclick="closeButton()">❌</div>
         </div>
     </div>
     <!--overlay that includes pop-up-->
@@ -21,44 +23,44 @@
         </div>
         <!--header-->
         <div id="main-content-area">
-            <img src="../images/loadingStarWars.gif">
+            <img src="./src/images/star_wars_logo.png">
         </div>
         <!--content area-->
         <div id="main-footer">
-            <script src="../../build/index.js"></script>
+            <script src="./build/index.js"></script>
             <div id="people" class="icons" onclick="fetchData('people','name',1)">
                 <h4>
-                    <div class="emoji">👱🏻‍♂️👱🏻‍♀️</div>
+                    <div class="emoji"><img src="./src/images/actor.svg" /></div>
                     <div class="entity">Actors</div>
                 </h4>
             </div>
             <div id="films" class="icons" onclick="fetchData('films','title',1)">
                 <h4>
-                    <div class="emoji">🎬</div>
+                    <div class="emoji"><img src="./src/images/films.svg" /></div>
                     <div class="entity">Films</div>
                 </h4>
             </div>
             <div id="starships" class="icons" onclick="fetchData('starships','name',1)">
                 <h4>
-                    <div class="emoji">🛸</div>
+                    <div class="emoji"><img src="./src/images/starships.svg" /></div>
                     <div class="entity">Starships</div>
                 </h4>
             </div>
             <div id="planets" class="icons" onclick="fetchData('planets','name',1)">
                 <h4>
-                    <div class="emoji">🪐</div>
+                    <div class="emoji"><img src="./src/images/planets.svg" /></div>
                     <div class="entity">Planets</div>
                 </h4>
             </div>
             <div id="vehicles" class="icons" onclick="fetchData('vehicles','name',1)">
                 <h4>
-                    <div class="emoji">✈</div>
+                    <div class="emoji"><img src="./src/images/vehicles.svg" /></div>
                     <div class="entity">Vehicles</div>
                 </h4>
             </div>
             <div id="species" class="icons" onclick="fetchData('species','name',1)">
                 <h4>
-                    <div class="emoji">👩🏻‍🚀</div>
+                    <div class="emoji"><img src="./src/images/species.svg" /></div>
                     <div class="entity">Species</div>
                 </h4>
             </div>

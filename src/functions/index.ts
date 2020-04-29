@@ -20,9 +20,9 @@ async function fetchData(input: string, key: string, page: number) {
     }
     let elementID = document.getElementById('main-content-area');
     if (elementID != null) {
-        elementID.innerHTML = `<img src = "../images/loading.gif">`; //to display loading till the fetch recieves a response
+        elementID.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`; //to display loading till the fetch recieves a response
     }
-    let url = 'https://swapi.co/api/' + input + '/?page=' + page;
+    let url = 'https://swapi.dev/api/' + input + '/?page=' + page;
     let response = await fetch(url);
     let data = await response.json(); // recieves data from the API and converted to JSON format
     let totalCount = data.count;
@@ -64,7 +64,7 @@ const entityDetails = async (url: string) => { //displays the content for onclic
     let y = document.getElementById('pop-up-content');
     if (x != null && y != null) {
         x.style.display = 'block'
-        y.innerHTML = `<img src = "../images/pop-up loading.gif">`;
+        y.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
     }
     let response = await fetch(url);
     let data = await response.json();
@@ -73,14 +73,18 @@ const entityDetails = async (url: string) => { //displays the content for onclic
     if (y != null) {
         y.innerHTML = `<table id='details-table'>
         <tr>
-        <th>Features</th>
-        <th>Details</th>
+        <th class = "col-1">Features</th>
+        <th class = "col-2">Details</th>
         </tr>
         ${details.map((element) => {
-            return `<tr>
-                <td>${element[0]}</td>
-                <td>${element[1]}</td>
+            if (typeof (element[1]) !== 'object' && element[0] !== 'url' && element[0] !== 'homeworld') {
+                element[0] = element[0].charAt(0).toUpperCase() + element[0].substring(1);
+                let correctedElement = element[0].split('_').join(' ');
+                return `<tr>
+                <td class = "col-1">${correctedElement}</td>
+                <td class = "col-2">${element[1]}</td>
                 </tr>`
+            }
         }).join('')}    
         </table>`
     }
