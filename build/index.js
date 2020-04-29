@@ -59,7 +59,7 @@ function fetchData(input, key, page) {
                     }
                     elementID = document.getElementById('main-content-area');
                     if (elementID != null) {
-                        elementID.innerHTML = "<div class=\"lds-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>"; //to display loading till the fetch recieves a response
+                        elementID.innerHTML = "\n        <div class='wrapper'>\n            <div class=\"lds-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>\n        </div>\n        "; //to display loading till the fetch recieves a response
                     }
                     url = 'https://swapi.dev/api/' + input + '/?page=' + page;
                     return [4 /*yield*/, fetch(url)];
@@ -105,37 +105,43 @@ function fetchData(input, key, page) {
     });
 }
 var entityDetails = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var x, y, urlArr, securedUrl, response, data, details;
+    var x, y;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                x = document.getElementById('overlay');
-                y = document.getElementById('pop-up-content');
-                if (x != null && y != null) {
-                    x.style.display = 'block';
-                    y.innerHTML = "<div class=\"lds-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>";
-                }
-                urlArr = url.split('/');
-                urlArr[0] = urlArr[0].replace('http:', 'https:');
-                securedUrl = urlArr.join('/');
-                return [4 /*yield*/, fetch(securedUrl)];
-            case 1:
-                response = _a.sent();
-                return [4 /*yield*/, response.json()];
-            case 2:
-                data = _a.sent();
-                details = Object.entries(data);
-                if (y != null) {
-                    y.innerHTML = "<table id='details-table'>\n        <tr>\n        <th class = \"col-1\">Features</th>\n        <th class = \"col-2\">Details</th>\n        </tr>\n        " + details.map(function (element) {
-                        if (typeof (element[1]) !== 'object' && element[0] !== 'url' && element[0] !== 'homeworld') {
-                            element[0] = element[0].charAt(0).toUpperCase() + element[0].substring(1);
-                            var correctedElement = element[0].split('_').join(' ');
-                            return "<tr>\n                <td class = \"col-1\">" + correctedElement + "</td>\n                <td class = \"col-2\">" + element[1] + "</td>\n                </tr>";
-                        }
-                    }).join('') + "    \n        </table>";
-                }
-                return [2 /*return*/];
+        x = document.getElementById('overlay');
+        y = document.getElementById('pop-up-content');
+        if (x != null && y != null) {
+            x.style.display = 'block';
+            y.innerHTML = "\n    <div class='wrapper'>\n        <div class=\"lds-roller\"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>\n    </div>\n    ";
         }
+        setTimeout(function () { return __awaiter(void 0, void 0, void 0, function () {
+            var urlArr, securedUrl, response, data, details;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        urlArr = url.split('/');
+                        urlArr[0] = urlArr[0].replace('http:', 'https:');
+                        securedUrl = urlArr.join('/');
+                        return [4 /*yield*/, fetch(securedUrl)];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        data = _a.sent();
+                        details = Object.entries(data);
+                        if (y != null) {
+                            y.innerHTML = "<table id='details-table'>\n        <tr>\n        <th class = \"col-1\">Features</th>\n        <th class = \"col-2\">Details</th>\n        </tr>\n        " + details.map(function (element) {
+                                if (typeof (element[1]) !== 'object' && element[0] !== 'url' && element[0] !== 'homeworld') {
+                                    element[0] = element[0].charAt(0).toUpperCase() + element[0].substring(1);
+                                    var correctedElement = element[0].split('_').join(' ');
+                                    return "<tr>\n                <td class = \"col-1\">" + correctedElement + "</td>\n                <td class = \"col-2\">" + element[1] + "</td>\n                </tr>";
+                                }
+                            }).join('') + "    \n        </table>";
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); }, 1000);
+        return [2 /*return*/];
     });
 }); };
 var closeButton = function () {

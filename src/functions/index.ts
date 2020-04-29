@@ -20,7 +20,11 @@ async function fetchData(input: string, key: string, page: number) {
     }
     let elementID = document.getElementById('main-content-area');
     if (elementID != null) {
-        elementID.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`; //to display loading till the fetch recieves a response
+        elementID.innerHTML = `
+        <div class='wrapper'>
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        `; //to display loading till the fetch recieves a response
     }
     let url = 'https://swapi.dev/api/' + input + '/?page=' + page;
     let response = await fetch(url);
@@ -52,6 +56,7 @@ async function fetchData(input: string, key: string, page: number) {
             return buttonArr;
         }
     }
+
     setTimeout(() => { //setting timeout
         if (elementID != null) {
             elementID.innerHTML = generateList(entityArray) + checkPageCount(); //displayed the list of entity names amd buttons
@@ -59,38 +64,44 @@ async function fetchData(input: string, key: string, page: number) {
         setCookie(input, key, page);
     }, 1000)
 }
+
 const entityDetails = async (url: string) => { //displays the content for onclick of each item in the pop-up
     let x = document.getElementById('overlay');
     let y = document.getElementById('pop-up-content');
     if (x != null && y != null) {
         x.style.display = 'block'
-        y.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+        y.innerHTML = `
+    <div class='wrapper'>
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    `;
     }
-    let urlArr = url.split('/');
-    urlArr[0] = urlArr[0].replace('http:', 'https:');
-    let securedUrl = urlArr.join('/');
-    let response = await fetch(securedUrl);
-    let data = await response.json();
-    let details = Object.entries(data);
-
-    if (y != null) {
-        y.innerHTML = `<table id='details-table'>
+    setTimeout(async () => {
+        let urlArr = url.split('/');
+        urlArr[0] = urlArr[0].replace('http:', 'https:');
+        let securedUrl = urlArr.join('/');
+        let response = await fetch(securedUrl);
+        let data = await response.json();
+        let details = Object.entries(data);
+        if (y != null) {
+            y.innerHTML = `<table id='details-table'>
         <tr>
         <th class = "col-1">Features</th>
         <th class = "col-2">Details</th>
         </tr>
         ${details.map((element) => {
-            if (typeof (element[1]) !== 'object' && element[0] !== 'url' && element[0] !== 'homeworld') {
-                element[0] = element[0].charAt(0).toUpperCase() + element[0].substring(1);
-                let correctedElement = element[0].split('_').join(' ');
-                return `<tr>
+                if (typeof (element[1]) !== 'object' && element[0] !== 'url' && element[0] !== 'homeworld') {
+                    element[0] = element[0].charAt(0).toUpperCase() + element[0].substring(1);
+                    let correctedElement = element[0].split('_').join(' ');
+                    return `<tr>
                 <td class = "col-1">${correctedElement}</td>
                 <td class = "col-2">${element[1]}</td>
                 </tr>`
-            }
-        }).join('')}    
+                }
+            }).join('')}    
         </table>`
-    }
+        }
+    }, 1000)
 }
 
 const closeButton = () => { //for closing the pop-up on click of close button
@@ -148,6 +159,7 @@ const onClickOverlay = (e: Event) => {
 const onClickPopUp = (e: Event) => {
     e.stopPropagation();
 }
+
 
 // async function fetchFilms() {
 //     let response = await fetch('https://swapi.co/api/films');
