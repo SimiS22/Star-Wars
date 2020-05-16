@@ -6,4 +6,6 @@ Star Wars website
 > npm install
 > npm run compile
 > npm run start or npm run watch
+
+Url : https://simis22.github.io/star-wars/
 ```
